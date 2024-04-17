@@ -28,6 +28,10 @@ function App(): React.JSX.Element {
       <Text style={styles.welcome}>Iniciando o Mines!</Text>
       <Text style={styles.instructions}>Tamanho da grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
       <Field />
+      <Field opened={true}/>
+      <Field opened={true} nearMines={1}/>
+      <Field opened={true} nearMines={2}/>
+      <Field opened={true} nearMines={6}/>
     </SafeAreaView>
   );
 }
