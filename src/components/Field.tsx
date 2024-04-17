@@ -1,11 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import params from "../params";
+import Mine from "./Mine";
 
 interface Props {
     mined?: boolean,
     opened?: boolean,
-    nearMines?: number
+    nearMines?: number,
+    exploded?: boolean
 }
 
 const styles = StyleSheet.create({
@@ -27,16 +29,21 @@ const styles = StyleSheet.create({
         borderRightColor: '#333',
         borderBottomColor: '#333'
     },
+    exploded: {
+        backgroundColor: 'red',
+        borderColor: 'red'
+    },
     label: {
         fontWeight: 'bold',
         fontSize: params.fontSize
     }
 })
 
-function Field({ mined, opened, nearMines }: Props): React.JSX.Element {
+function Field({ mined, opened, nearMines, exploded }: Props): React.JSX.Element {
 
     const styleField: { [key: string]: any } = [styles.field];
-    if (opened) styleField.push(styles.opened)
+    if (opened) styleField.push(styles.opened);
+    if (exploded) styleField.push(styles.exploded);
     if (styleField.length === 1) styleField.push(styles.regular);
 
     let color = "";
@@ -51,6 +58,7 @@ function Field({ mined, opened, nearMines }: Props): React.JSX.Element {
         <View style={styleField}>
             {!mined && opened && (nearMines != undefined && nearMines > 0) ?
                 <Text style={[styles.label, { color: color }]}>{nearMines}</Text> : false}
+            {mined && opened ? <Mine /> : false}
         </View>
     );
 }
