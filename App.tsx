@@ -34,6 +34,7 @@ function App(): React.JSX.Element {
       <Field opened={true} nearMines={6} />
       <Field opened={true} mined={true} />
       <Field opened={true} mined={true} exploded={true} />
+      <Field marked={true} />
     </SafeAreaView>
   );
 }

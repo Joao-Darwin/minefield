@@ -2,12 +2,14 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import params from "../params";
 import Mine from "./Mine";
+import Flag from "./Flag";
 
 interface Props {
     mined?: boolean,
     opened?: boolean,
     nearMines?: number,
-    exploded?: boolean
+    exploded?: boolean,
+    marked?: boolean
 }
 
 const styles = StyleSheet.create({
@@ -33,18 +35,22 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         borderColor: 'red'
     },
+    marked: {
+
+    },
     label: {
         fontWeight: 'bold',
         fontSize: params.fontSize
     }
 })
 
-function Field({ mined, opened, nearMines, exploded }: Props): React.JSX.Element {
+function Field({ mined, opened, nearMines, exploded, marked }: Props): React.JSX.Element {
 
     const styleField: { [key: string]: any } = [styles.field];
     if (opened) styleField.push(styles.opened);
     if (exploded) styleField.push(styles.exploded);
-    if (styleField.length === 1) styleField.push(styles.regular);
+    if (marked) styleField.push(styles.marked);
+    if (!opened && !exploded) styleField.push(styles.regular);
 
     let color = "";
     if (nearMines != undefined && nearMines > 0) {
@@ -59,6 +65,7 @@ function Field({ mined, opened, nearMines, exploded }: Props): React.JSX.Element
             {!mined && opened && (nearMines != undefined && nearMines > 0) ?
                 <Text style={[styles.label, { color: color }]}>{nearMines}</Text> : false}
             {mined && opened ? <Mine /> : false}
+            {marked && !opened ? <Flag /> : false}
         </View>
     );
 }
