@@ -5,10 +5,10 @@ import {
   Text,
   View
 } from 'react-native';
-import params from './src/params';
+import params from './src/utils/params';
 import Field from './src/components/Field';
 import MineField from './src/components/MineField';
-import { createMinedBoard } from './src/gameLogic';
+import { createMinedBoard } from './src/utils/gameLogic';
 import IField from './src/interfaces/IField';
 
 const styles = StyleSheet.create({

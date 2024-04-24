@@ -1,4 +1,4 @@
-import IField from "./interfaces/IField"
+import IField from "../interfaces/IField"
 
 export const createMinedBoard = (rows: number, columns: number, minesAmount: number): IField[][] => {
     const board: IField[][] = createBoard(rows, columns);

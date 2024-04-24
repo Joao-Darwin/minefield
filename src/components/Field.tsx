@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import params from "../params";
+import params from "../utils/params";
 import Mine from "./Mine";
 import Flag from "./Flag";
 
