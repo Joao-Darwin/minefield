@@ -107,3 +107,8 @@ export const showMines = (board: IField[][]): void => {
 export const hadExplosion = (board: IField[][]): boolean => {
     return fields(board).filter(field => field.exploded).length > 0;
 }
+
+export const invertFlag = (board: IField[][], row: number, column: number) => {
+    const field = board[row][column];
+    field.marked = !field.marked;
+}

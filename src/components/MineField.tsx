@@ -6,6 +6,7 @@ import Field from "./Field";
 interface Props {
     board: IField[][],
     onOpenField: ((row: number, column: number) => void)
+    onSelectField: ((row: number, column: number) => void)
 }
 
 const styles = StyleSheet.create({
@@ -14,13 +15,17 @@ const styles = StyleSheet.create({
     }
 })
 
-function MineField({ board, onOpenField }: Props): React.JSX.Element {
+function MineField({ board, onOpenField, onSelectField }: Props): React.JSX.Element {
     const rows = board.map((row, indexRow) => {
         const colums = row.map((column, indexColumn) => {
-            return <Field {...column} key={indexColumn} onOpen={() => onOpenField(indexRow, indexColumn)}/> 
+            return <Field {...column}
+                key={indexColumn}
+                onOpen={() => onOpenField(indexRow, indexColumn)}
+                onSelect={() => onSelectField(indexRow, indexColumn)}
+            />
         })
-        return <View style={{flexDirection: 'row'}} key={indexRow}>{colums}</View>
-    }) 
+        return <View style={{ flexDirection: 'row' }} key={indexRow}>{colums}</View>
+    })
 
     return (
         <View style={styles.container}>{rows}</View>

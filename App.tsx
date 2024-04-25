@@ -9,7 +9,7 @@ import {
 import params from './src/utils/params';
 import Field from './src/components/Field';
 import MineField from './src/components/MineField';
-import { cloneBoard, createMinedBoard, hadExplosion, openField, showMines, wonGame } from './src/utils/gameLogic';
+import { cloneBoard, createMinedBoard, hadExplosion, invertFlag, openField, showMines, wonGame } from './src/utils/gameLogic';
 import IField from './src/interfaces/IField';
 
 const styles = StyleSheet.create({
@@ -74,12 +74,26 @@ function App(): React.JSX.Element {
     setLost(lost);
   }
 
+  const onSelectField = (row: number, column: number) => {
+    const board = cloneBoard(boardState);
+    invertFlag(board, row, column);
+
+    const won = wonGame(board);
+
+    if (won) {
+      Alert.alert('You winn!!!');
+    }
+
+    setBoardState(board);
+    setWon(won);
+  }
+
   return (
     <SafeAreaView style={styles.App}>
       <Text style={styles.welcome}>Iniciando o Mines!</Text>
       <Text style={styles.instructions}>Tamanho da grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
       <View style={styles.board}>
-        <MineField board={boardState} onOpenField={onOpenField} />
+        <MineField board={boardState} onOpenField={onOpenField} onSelectField={onSelectField} />
       </View>
     </SafeAreaView>
   );

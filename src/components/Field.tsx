@@ -11,6 +11,7 @@ interface Props {
     exploded?: boolean,
     marked?: boolean,
     onOpen: ((event: GestureResponderEvent) => void) | undefined
+    onSelect: ((event: GestureResponderEvent) => void) | undefined
 }
 
 const styles = StyleSheet.create({
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     }
 })
 
-function Field({ mined, opened, nearMines, exploded, marked, onOpen }: Props): React.JSX.Element {
+function Field({ mined, opened, nearMines, exploded, marked, onOpen, onSelect }: Props): React.JSX.Element {
 
     const styleField: { [key: string]: any } = [styles.field];
     if (opened) styleField.push(styles.opened);
@@ -62,7 +63,7 @@ function Field({ mined, opened, nearMines, exploded, marked, onOpen }: Props): R
     }
 
     return (
-        <TouchableWithoutFeedback onPress={onOpen}>
+        <TouchableWithoutFeedback onPress={onOpen} onLongPress={onSelect}>
             <View style={styleField}>
                 {!mined && opened && (nearMines != undefined && nearMines > 0) ?
                     <Text style={[styles.label, { color: color }]}>{nearMines}</Text> : false}
