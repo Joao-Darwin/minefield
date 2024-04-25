@@ -71,7 +71,7 @@ const getNeighbors = (board: IField[][], row: number, column: number): IField[] 
     return neighbors;
 }
 
-export const openField = (board: IField[][], row: number, column: number) => {
+export const openField = (board: IField[][], row: number, column: number): void => {
     const field: IField = board[row][column];
 
     if (!field.opened) {
@@ -87,7 +87,7 @@ export const openField = (board: IField[][], row: number, column: number) => {
     }
 }
 
-export const wonGame = (board: IField[][]) => {
+export const wonGame = (board: IField[][]): boolean => {
     return fields(board).filter(pendding).length === 0;
 }
 
@@ -98,9 +98,9 @@ const fields = (board: IField[][]): IField[] => {
 
 const pendding = (field: IField): boolean => (field.mined && !field.marked) || (!field.opened && !field.mined);
 
-export const showMines = (board: IField[][]) => {
+export const showMines = (board: IField[][]): void => {
     return fields(board).filter(field => field.mined).forEach(field => {
-        field.opened = true; 
+        field.opened = true;
     })
 }
 
