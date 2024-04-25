@@ -1,15 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { GestureResponderEvent, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import params from "../utils/params";
-import Mine from "./Mine";
 import Flag from "./Flag";
+import Mine from "./Mine";
 
 interface Props {
     mined?: boolean,
     opened?: boolean,
     nearMines?: number,
     exploded?: boolean,
-    marked?: boolean
+    marked?: boolean,
+    onOpen: ((event: GestureResponderEvent) => void) | undefined
 }
 
 const styles = StyleSheet.create({
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     }
 })
 
-function Field({ mined, opened, nearMines, exploded, marked }: Props): React.JSX.Element {
+function Field({ mined, opened, nearMines, exploded, marked, onOpen }: Props): React.JSX.Element {
 
     const styleField: { [key: string]: any } = [styles.field];
     if (opened) styleField.push(styles.opened);
@@ -61,12 +62,14 @@ function Field({ mined, opened, nearMines, exploded, marked }: Props): React.JSX
     }
 
     return (
-        <View style={styleField}>
-            {!mined && opened && (nearMines != undefined && nearMines > 0) ?
-                <Text style={[styles.label, { color: color }]}>{nearMines}</Text> : false}
-            {mined && opened ? <Mine /> : false}
-            {marked && !opened ? <Flag /> : false}
-        </View>
+        <TouchableWithoutFeedback onPress={onOpen}>
+            <View style={styleField}>
+                {!mined && opened && (nearMines != undefined && nearMines > 0) ?
+                    <Text style={[styles.label, { color: color }]}>{nearMines}</Text> : false}
+                {mined && opened ? <Mine /> : false}
+                {marked && !opened ? <Flag /> : false}
+            </View>
+        </TouchableWithoutFeedback>
     );
 }
 
